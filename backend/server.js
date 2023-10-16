@@ -1,31 +1,24 @@
-```javascript
 const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-
-const routes = require('./routes');
-const db = require('./database');
-
 const app = express();
-const port = process.env.PORT || 3000;
+const dotenv = require('dotenv');
+const mongoose = require('mongoose');
+
+// Import Routes
+const authRoute = require('./routes');
+
+dotenv.config();
+
+// Connect to DB
+mongoose.connect(
+  process.env.DB_CONNECT,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  () => console.log('connected to DB!')
+);
 
 // Middleware
-app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
-// Database connection
-mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Database connected successfully'))
-  .catch(err => console.log(err));
+// Route Middlewares
+app.use('/api/user', authRoute);
 
-// Routes
-app.use('/api', routes);
-
-// Server
-const server = app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
-
-module.exports = server;
-```
+app.listen(3000, () => console.log('Server Up and running'));

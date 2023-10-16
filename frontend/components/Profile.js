@@ -1,53 +1,21 @@
-```javascript
 import React, { useState } from 'react';
-import axios from 'axios';
 
 const Profile = () => {
-  const [profile, setProfile] = useState({
-    name: '',
-    linkedAccounts: '',
-    publicStances: ''
-  });
+  const [username, setUsername] = useState('');
 
-  const handleChange = (event) => {
-    setProfile({
-      ...profile,
-      [event.target.name]: event.target.value
-    });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    axios.post('/api/profiles', profile)
-      .then(res => {
-        console.log(res.data);
-        setProfile({
-          name: '',
-          linkedAccounts: '',
-          publicStances: ''
-        });
-      })
-      .catch(err => console.log(err));
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
   };
 
   return (
-    <form id="profileForm" onSubmit={handleSubmit}>
+    <div>
+      <h2>User Profile</h2>
       <label>
-        Name:
-        <input type="text" name="name" value={profile.name} onChange={handleChange} required />
+        Username:
+        <input type='text' value={username} onChange={handleUsernameChange} />
       </label>
-      <label>
-        Linked Accounts:
-        <input type="text" name="linkedAccounts" value={profile.linkedAccounts} onChange={handleChange} required />
-      </label>
-      <label>
-        Public Stances:
-        <textarea name="publicStances" value={profile.publicStances} onChange={handleChange} required />
-      </label>
-      <button type="submit">Create Profile</button>
-    </form>
+    </div>
   );
 };
 
 export default Profile;
-```

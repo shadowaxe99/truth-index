@@ -26,18 +26,18 @@ const Filter = ({ onFilterChange }) => {
   };
 
   return (
-    <div id="filterOptions">
+    <div id='filterOptions'>
       <label>
         Trust Score:
-        <input type="number" value={trustScore} onChange={handleTrustScoreChange} />
+        <input type='number' value={trustScore} onChange={handleTrustScoreChange} />
       </label>
       <label>
         Public Stance:
-        <input type="text" value={publicStance} onChange={handlePublicStanceChange} />
+        <input type='text' value={publicStance} onChange={handlePublicStanceChange} />
       </label>
       <label>
         Review Count:
-        <input type="number" value={reviewCount} onChange={handleReviewCountChange} />
+        <input type='number' value={reviewCount} onChange={handleReviewCountChange} />
       </label>
       <button onClick={handleFilterChange}>Apply Filters</button>
     </div>
